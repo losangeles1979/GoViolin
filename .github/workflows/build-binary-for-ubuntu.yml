@@ -48,4 +48,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ubuntu-latest-allBuildFiles
-        path: D:\a\GoViolin\GoViolin
+        path: ./  # entire contents of current directory
