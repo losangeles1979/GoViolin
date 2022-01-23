@@ -1,0 +1,54 @@
+name: Build Binary for Windows Server 2019
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  setup-build-test-upload:
+    name: Setup + Build + Test + Upload Artifact
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        stable: 'true'
+        go-version: '1.15.15' # The Golang version to download (if necessary) and use
+
+    - name: build
+      # this does NOT copy the binary to $GOPATH/bin/news-demo.exe
+      # run: go install
+      
+      # use the -o option to specify the name of the output exe
+      run: go build -o GoViolin.exe
+      
+      # not sure exactly what this does?!
+      # run: go build -v ./...
+
+    - name: Test
+      run: go test -v ./...
+
+    - name: list working directory files
+      run: echo $(ls)
+
+    - name: initiate tj-actions/glob@v3.3
+      uses: tj-actions/glob@v3.3
+      id: glob
+      with:
+        files: |
+          *.exe
+    - name: Show all matching files
+      run: |
+        echo "${{ steps.glob.outputs.paths }}"
+
+    - name: upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Windows-Server-2019-binary
+        path: GoViolin.exe
+        # this fails!!  path: $GOPATH/bin/news-demo.exe
