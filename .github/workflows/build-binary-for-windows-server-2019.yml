@@ -49,6 +49,6 @@ jobs:
     - name: upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: Windows-Server-2019-binary
+        name: windows-werver-2019-binary
         path: GoViolin.exe
-        # this fails!!  path: $GOPATH/bin/news-demo.exe
+        # this fails!!  path: $GOPATH/bin/GoViolin.exe
