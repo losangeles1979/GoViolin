@@ -49,6 +49,5 @@ jobs:
     - name: upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: windows-werver-2019-binary
-        path: GoViolin.exe
-        # this fails!!  path: $GOPATH/bin/GoViolin.exe
+        name: windows-server-2019-allBuildFiles
+        path: ./  # entire contents of current directory
