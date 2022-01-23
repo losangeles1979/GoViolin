@@ -5,23 +5,22 @@ FROM golang:1.15-alpine
 WORKDIR /app
 
 COPY go.sum ./
-
 COPY go.mod ./
 RUN go mod download
-RUN go mod tidy
-
+# RUN go mod tidy
+RUN go mod vendor
 RUN apk add git
 
-#RUN go get github.com/Freshman-tech/news-demo
-RUN go get github.com/joho/godotenv
-
-COPY *.go ./
+# We need not only all of the *.go files
+# but index.html, css folder, templates folder, the works!
+COPY *.* ./
 
 # Download all the dependencies
 RUN go get -d -v ./...
 
-# Avoid: RUN go build -o docker-news-app
-# Install the package
+# RUN go build -o docker-news-app
+
 RUN go install -v ./...
-EXPOSE 3000
-CMD [ "/main.exe" ]
+COPY GoViolin.exe ./
+EXPOSE 8080
+CMD [ "./GoViolin.exe" ]
