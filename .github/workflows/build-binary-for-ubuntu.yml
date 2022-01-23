@@ -23,7 +23,7 @@ jobs:
       env: 
           NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
       # this does NOT copy the binary to $GOPATH/bin/news-demo.exe  -->  run: go install 
-      run: go build -o main.exe main.go
+      run: go build -o main.exe
       
       # not sure exactly what this does?!
       # run: go build -v ./...
